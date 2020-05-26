@@ -32,11 +32,11 @@ router.post('/', (req, res) => {
         }))
 })
 
-//QUERY LOG BY NAME
+//QUERY LOG BY ID
 router.get('/:id', (req, res) => {
     Log.findOne({
         where: {
-            owner_id: req.params.id
+            id: req.params.id
         }
     })
     .then(log => res.status(200).json({
