@@ -32,6 +32,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../db').import('../models/user');
 
 const validateSession = (req, res, next) => {
+
     const token = req.headers.authorization;
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -54,6 +55,5 @@ const validateSession = (req, res, next) => {
         }
     })
 }
-
 
 module.exports = validateSession;
