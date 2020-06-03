@@ -5,7 +5,11 @@ const Log = require('../db').import('../models/log');
 
 //GET
 router.get('/', (req, res) => {
-    Log.findAll()
+    Log.findAll({
+        where: {
+            owner_id: req.user.id
+        }
+    })
         .then(logs => res.status(200).json({
             logs: logs
         }))
@@ -20,7 +24,7 @@ router.post('/', (req, res) => {
         description: req.body.description,
         definition: req.body.definition,
         result: req.body.result,
-        owner_id: req.body.owner_id
+        owner_id: req.user.id
     }
 
     Log.create(logFromRequest)
@@ -49,7 +53,7 @@ router.get('/:id', (req, res) => {
 
 //UPDATE
 router.put('/:id', (req, res) => {
-    Log.update(req.body, {
+    Log.update(req.body.log, {
         where: {
             id: req.params.id
         }

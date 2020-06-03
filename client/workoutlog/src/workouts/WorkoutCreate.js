@@ -4,14 +4,14 @@ import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 const WorkoutCreate = (props) => {
     const [description, setDescription] = useState('');
-    const [definition, setDefinition] = useState('');
+    const [definition, setDefinition] = useState('Time');
     const [result, setResult] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch('http://localhost:3000/log/', {
+        fetch('http://localhost:3000/logs', {
             method: 'POST',
-            body: JSON.stringify({log: {description: description, definition: definition, result: result}}),
+            body: JSON.stringify({description: description, definition: definition, result: result}),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': props.token
@@ -21,7 +21,7 @@ const WorkoutCreate = (props) => {
         .then((logData) => {
             console.log(logData);
             setDescription('');
-            setDefinition('');
+            setDefinition('Time');
             setResult('');
             props.fetchWorkouts();
         })
